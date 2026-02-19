@@ -2,8 +2,11 @@
 pragma solidity ^0.8.20;
 
 /// @title RaffleChain Contract
+/// @author solidworkssa
 /// @notice Provably fair on-chain raffle system.
 contract RaffleChain {
+    string public constant VERSION = "1.0.0";
+
 
     address[] public players;
     uint256 public entryFee = 0.01 ether;
