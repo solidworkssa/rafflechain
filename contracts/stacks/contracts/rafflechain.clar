@@ -22,8 +22,8 @@
 
 (define-public (enter)
     (let ((count (var-get player-count)))
-        (try! (stx-transfer? (var-get entry-fee) tx-sender (as-contract tx-sender)))
-        (map-set players count tx-sender)
+        (try! (stx-transfer? (var-get entry-fee) contract-caller (as-contract contract-caller)))
+        (map-set players count contract-caller)
         (var-set player-count (+ count u1))
         (ok true)
     )
@@ -36,7 +36,7 @@
             (winner-idx (mod block-height count)) ;; Simple random
             (winner (unwrap! (map-get? players winner-idx) (err u500)))
         )
-        (try! (as-contract (stx-transfer? (stx-get-balance (as-contract tx-sender)) tx-sender winner)))
+        (try! (as-contract (stx-transfer? (stx-get-balance (as-contract contract-caller)) contract-caller winner)))
         ;; Reset logic omitted for brevity
         (ok winner)
     )
